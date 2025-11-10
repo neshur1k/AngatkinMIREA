@@ -7,8 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -55,7 +57,10 @@ class MainActivity : ComponentActivity() {
                     // StyledButton()
                     // GrayContainer()
                     // CircleTopRight()
-                    CircleCenter()
+                    // CircleCenter()
+                    // FirstColumnText()
+                    // SecondColumnText()
+                    RowText()
                 }
             }
         }
@@ -65,7 +70,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Hello(name: String?, modifier: Modifier = Modifier) {
     Text(
-        text = if (name != null) "Здравствуйте, $name!" else "Имя не задано",
+        // text = if (name != null) "Здравствуйте, $name!" else "Имя не задано",
+        text = "",
         modifier = modifier
     )
 }
@@ -215,5 +221,105 @@ fun CircleCenter() {
             colorFilter = ColorFilter.tint(Color(0xFF9C27B0)),
             contentScale = ContentScale.FillBounds
         )
+    }
+}
+
+@Composable
+fun FirstColumnText() {
+    Column {
+        Text(text = "Имя: Евгений", fontSize = 14.sp)
+        Text(text = "Отчество: Андреевич", fontSize = 14.sp)
+        Text(text = "Фамилия: Лукашин", fontSize = 14.sp)
+        Text(text = "Мобильный телефон: +7 495 495 95 95", fontSize = 14.sp)
+        Text(text = "Адрес: г. Москва, 3-я улица Строителей, д. 25, кв. 12", fontSize = 14.sp)
+    }
+}
+
+@Composable
+fun SecondColumnText() {
+    Column {
+        Box(
+            modifier = Modifier
+                .padding(vertical = 10.dp, horizontal = 10.dp)
+                .fillMaxWidth()
+                .background(Color.LightGray),
+            contentAlignment = Alignment.Center
+        ) {
+            Column (
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = "Имя: Евгений", fontSize = 14.sp)
+                Text(text = "Отчество: Андреевич", fontSize = 14.sp)
+                Text(text = "Фамилия: Лукашин", fontSize = 14.sp)
+                Text(text = "Мобильный телефон: +7 495 495 95 95", fontSize = 14.sp)
+                Text(text = "Адрес: г. Москва, 3-я улица Строителей, д. 25, кв. 12", fontSize = 14.sp)
+            }
+        }
+
+        Box(
+            modifier = Modifier
+                .padding(vertical = 10.dp, horizontal = 10.dp)
+                .fillMaxWidth()
+                .background(Color.LightGray),
+            contentAlignment = Alignment.Center
+        ) {
+            Column (
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = "Имя: Василий", fontSize = 14.sp)
+                Text(text = "Отчество: Егорович", fontSize = 14.sp)
+                Text(text = "Фамилия: Кузякин", fontSize = 14.sp)
+                Text(text = "Мобильный телефон: —", fontSize = 14.sp)
+                Text(text = "Адрес: Ивановская область, дер. Крутово, д. 4", fontSize = 14.sp)
+            }
+        }
+
+        Box(
+            modifier = Modifier
+                .padding(vertical = 10.dp, horizontal = 10.dp)
+                .fillMaxWidth()
+                .background(Color.LightGray),
+            contentAlignment = Alignment.Center
+        ) {
+            Column (
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = "Имя: Людмила", fontSize = 14.sp)
+                Text(text = "Отчество: Прокофьевна", fontSize = 14.sp)
+                Text(text = "Фамилия: Калугина", fontSize = 14.sp)
+                Text(text = "Мобильный телефон: +7 495 788 78 78", fontSize = 14.sp)
+                Text(text = "Адрес: Москва, Большая Никитская, д. 43, кв. 290", fontSize = 14.sp)
+            }
+        }
+    }
+}
+
+@Composable
+fun RowText() {
+    Box(
+        modifier = Modifier
+            .padding(vertical = 10.dp, horizontal = 10.dp)
+            .fillMaxWidth()
+            .background(Color.LightGray),
+    ) {
+        Row (
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(text = "Имя: Евгений\nОтчество: Андреевич\nФамилия: Лукашин\n" +
+                    "Мобильный телефон: +7 495 495 95 95\n" +
+                    "Адрес: г. Москва, 3-я улица Строителей, д. 25, кв. 12",
+                fontSize = 14.sp,
+                textAlign = TextAlign.Center
+            )
+            Image(
+                painter = painterResource(id = R.drawable.circle),
+                contentDescription = "red circle"
+            )
+        }
     }
 }
