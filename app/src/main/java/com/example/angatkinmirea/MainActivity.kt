@@ -1,6 +1,7 @@
 package com.example.angatkinmirea
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -39,6 +40,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
@@ -50,6 +52,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.angatkinmirea.ui.theme.AngatkinMIREATheme
+import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,7 +69,8 @@ class MainActivity : ComponentActivity() {
                     // FirstColumnText()
                     // SecondColumnText()
                     // RowText()
-                    WaterTracker()
+                    // WaterTracker()
+                    ShoppingCartScreen()
                 }
             }
         }
@@ -359,8 +363,57 @@ fun WaterTracker() {
             }
             Spacer(modifier = Modifier.height(48.dp))
             Text(text = "Дней подряд: $dayCount", fontSize = 18.sp,
-                fontWeight = FontWeight.Bold, color = secondaryColor
+                fontWeight = FontWeight.Bold, color = secondaryColor)
+        }
+    }
+}
+
+data class Product(
+    val id: Int,
+    val name: String,
+    val price: Int
+)
+
+@Composable
+fun ShoppingCartScreen() {
+    val context = LocalContext.current
+    var products by remember {
+        mutableStateOf(
+            listOf(
+                Product(0, "Товар #1", 100),
+                Product(1, "Товар #2", 150),
+                Product(2, "Товар #3", 56)
             )
+        )
+    }
+    val totalSum = products.sumOf { it.price }
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        for (product in products) {
+            Text(text = product.name + " - " + product.price + " рублей")
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        Text(text = "Товаров на сумму: $totalSum рублей")
+        Button(onClick = {
+            products = products + Product(
+                id = products.size,
+                name = "Товар #${products.size + 1}",
+                price = Random.nextInt(0, 100)
+            )
+            if (products.sumOf { it.price } > 500) {
+                Toast.makeText(context, "Доставка бесплатная!", Toast.LENGTH_SHORT).show()
+            }
+        }) {
+            Text(text = "Добавить товар")
+        }
+        if (products.isNotEmpty()) {
+            Button(onClick = {
+                products = products.dropLast(1)
+            }) {
+                Text("Удалить товар")
+            }
         }
     }
 }
