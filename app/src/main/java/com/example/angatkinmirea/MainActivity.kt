@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +15,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,6 +46,7 @@ class MainActivity : ComponentActivity() {
                         name = "Александр",
                         modifier = Modifier.padding(innerPadding)
                     )
+                    StyledButton()
                 }
             }
         }
@@ -126,3 +131,19 @@ fun ComposeTextPreview() {
     }
 }
 
+@Composable
+fun StyledButton() {
+    Button(
+        onClick = {},
+        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        shape = RoundedCornerShape(16.dp),
+        border = BorderStroke(2.dp, Color.Gray),
+        elevation = ButtonDefaults.buttonElevation(4.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.LightGray,
+            contentColor = Color.Black
+        )
+    ) {
+        Text("Нажми на меня")
+    }
+}
